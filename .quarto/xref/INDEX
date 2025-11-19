@@ -1,0 +1,32 @@
+{
+  "index.qmd": {
+    "index.html": "a764879e"
+  },
+  "docs/sections/introduction.qmd": {
+    "introduction.html": "0a7c255c"
+  },
+  "sections/conclusion.qmd": {
+    "conclusion.html": "9d3d6a2d"
+  },
+  "sections/data_cleaning.qmd": {
+    "data_cleaning.html": "8ff408e0"
+  },
+  "sections/Introduction.qmd": {
+    "Introduction.html": "b5cb6045"
+  },
+  "sections/literature_review.qmd": {
+    "literature_review.html": "51978e2d"
+  },
+  "sections/methodology.qmd": {
+    "methodology.html": "d198e4de"
+  },
+  "sections/models.qmd": {
+    "models.html": "47b29177"
+  },
+  "sections/references.qmd": {
+    "references.html": "5b780413"
+  },
+  "sections/results.qmd": {
+    "results.html": "7b822148"
+  }
+}

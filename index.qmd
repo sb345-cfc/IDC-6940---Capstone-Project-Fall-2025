@@ -1,0 +1,8 @@
+---
+title: "Stroke Prediction – Final Project"
+format: html
+---
+
+Welcome to my STA6257 final project on stroke prediction using machine learning.
+
+Use the navigation bar above to explore each section.

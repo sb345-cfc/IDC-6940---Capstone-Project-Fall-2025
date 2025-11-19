@@ -1,0 +1,62 @@
+---
+title: "References"
+---
+
+## Dataset
+
+Krekorian, N. (2020). *Stroke Prediction Dataset*. Kaggle.  
+https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset
+
+---
+
+## Key Research Used in Literature Review
+
+Amin, R., Hasan, M., & Islam, M. (2021). Predicting stroke disease using machine learning classifiers with SMOTE for balancing class imbalance. *Journal of Computer Science*, 17(4), 327–338.
+
+Kaur, H., & Kumar, R. (2019). Predictive modeling for stroke detection using machine learning algorithms. *International Journal of Engineering and Advanced Technology*, 8(6), 1230–1235.
+
+Mohanty, S., Gupta, D., & Dhara, B. (2020). Stroke prediction using machine learning techniques: A comprehensive study. *International Journal of Advanced Computer Science and Applications*, 11(5), 440–448.
+
+World Health Organization. (2023). *Stroke Fact Sheet*. https://www.who.int
+
+---
+
+## R Packages
+
+Kuhn, M. (2022). *caret: Classification and Regression Training*. R package version 6.0–94.  
+https://CRAN.R-project.org/package=caret
+
+Robin, X. et al. (2011). *pROC: Display and Analyze ROC Curves*.  
+https://CRAN.R-project.org/package=pROC
+
+R Core Team. (2024). *R: A Language and Environment for Statistical Computing*.  
+https://www.r-project.org/
+
+Greenwell, B., Boehmke, B., & Gray, B. (2020). *gbm: Generalized Boosting Models*.  
+https://CRAN.R-project.org/package=gbm
+
+Liaw, A., & Wiener, M. (2002). *RandomForest: Breiman and Cutler’s Random Forests for Classification and Regression*.  
+https://CRAN.R-project.org/package=randomForest
+
+Venables, W., & Ripley, B. (2002). *Modern Applied Statistics with S*. Springer.
+
+---
+
+## Additional References
+
+James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). *An Introduction to Statistical Learning (2nd ed.)*. Springer.
+
+Kuhn, M., & Johnson, K. (2013). *Applied Predictive Modeling*. Springer.
+
+---
+
+## Notes
+
+This reference list includes:
+
+- All sources used in the introduction and literature review  
+- Credited datasets  
+- Books and academic resources relevant to machine-learning modeling  
+- Key R packages used in the analysis  
+
+

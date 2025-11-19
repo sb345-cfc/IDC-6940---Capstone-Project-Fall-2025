@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Stroke Prediction – Final Project"
+  navbar:
+    left:
+      - text: "Introduction"
+        file: sections/introduction.qmd
+      - text: "Literature Review"
+        file: sections/literature_review.qmd
+      - text: "Methodology"
+        file: sections/methodology.qmd
+      - text: "Data Cleaning"
+        file: sections/data_cleaning.qmd
+      - text: "Models"
+        file: sections/models.qmd
+      - text: "Results"
+        file: sections/results.qmd
+      - text: "Conclusion"
+        file: sections/conclusion.qmd
+      - text: "References"
+        file: sections/references.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-location: left
+    code-fold: true

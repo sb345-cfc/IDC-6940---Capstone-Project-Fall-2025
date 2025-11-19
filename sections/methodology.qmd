@@ -1,0 +1,183 @@
+---
+title: "Methodology"
+---
+
+This project follows a structured machine-learning workflow consisting of four key phases: **data understanding**, **data preparation**, **model development**, and **model evaluation**. The goal of the methodology is to ensure clean data, prevent data leakage, and allow fair comparison across six classification models.
+
+---
+
+## 1. Dataset Description
+
+This study uses a publicly available stroke dataset from Kaggle that contains **5,110 observations** describing demographic, behavioral, and clinical features associated with stroke risk. Variables include:
+
+- Age  
+- Gender  
+- Hypertension  
+- Heart disease  
+- Marital status  
+- Work type  
+- Residence type  
+- Smoking status  
+- BMI  
+- Average glucose level  
+
+The outcome variable **stroke** is binary (Yes/No).  
+Only **~5%** of individuals experienced a stroke, making this a **highly imbalanced dataset** — a challenge addressed throughout the methodology.
+
+---
+
+## 2. Data Cleaning and Preparation
+
+Data preparation is one of the most important steps because incorrect data types, missing values, and rare categories can create misleading model performance.
+
+### 2.1 Removing non-predictive identifiers
+
+The dataset contained an ID field that had no predictive value:
+
+```r
+stroke <- stroke %>% select(-id)
+
+###2.2 Recoding and converting categorical variables to factors
+
+Categorical variables were converted to factors for proper model handling:
+
+stroke <- stroke %>%
+  mutate(
+    gender = factor(gender),
+    ever_married = factor(ever_married),
+    work_type = factor(work_type),
+    residence_type = factor(residence_type),
+    smoking_status = factor(smoking_status),
+    hypertension = factor(hypertension),
+    heart_disease = factor(heart_disease),
+    stroke = factor(stroke, levels = c(0,1), labels = c("No","Yes"))
+  )
+###2.3 Handling rare categories
+The gender variable contained one case labeled “Other.”
+To avoid model instability:
+###2.4 Cleaning and imputing BMI
+The BMI variable contained missing values and entries such as "N/A".
+These were converted and imputed using the median:
+
+stroke$bmi[stroke$bmi == "N/A"] <- NA
+stroke$bmi <- as.numeric(stroke$bmi)
+median_bmi <- median(stroke$bmi, na.rm = TRUE)
+stroke$bmi[is.na(stroke$bmi)] <- median_bmi
+
+BMI ranged from 10.3 to 97.6, with a median of 28.1, indicating a slightly right-skewed distribution due to high-BMI outliers.
+
+2.5 Verifying data integrity
+A final missing-value check confirmed the dataset was complete:
+
+sapply(stroke, function(x) sum(is.na(x)))
+
+3. Train/Test Split (Preventing Data Leakage)
+
+To maintain class proportions while preventing data leakage, a stratified 70/30 split was used:
+
+set.seed(123)
+index <- createDataPartition(stroke$stroke, p = 0.7, list = FALSE)
+train_data <- stroke[index, ]
+test_data  <- stroke[-index, ]
+
+Both training and test sets retained the same imbalance ratio (~5% stroke).
+
+4. Cross-Validation
+
+All models were trained using:
+
+- 5-fold cross-validation
+
+- 3 repetitions
+
+- ROC (AUC) as the optimization metric
+
+ctrl <- trainControl(
+  method = "repeatedcv",
+  number = 5,
+  repeats = 3,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary
+)
+
+This ensures stable model comparison and reduces overfitting.
+
+5. Model Development (Six Classification Models)
+
+Six supervised learning models were trained using consistent preprocessing and cross-validation settings:
+
+- Logistic Regression
+
+- Decision Tree (rpart)
+
+- Random Forest
+
+- Gradient Boosted Machine (GBM)
+
+- k-Nearest Neighbors (kNN)
+
+- Support Vector Machine (Radial Kernel)
+
+All models used the same formula and training control:
+
+fit_model <- train(
+  model_formula,
+  data = train_data,
+  method = "...",
+  trControl = ctrl,
+  metric = "ROC"
+)
+
+This provides a fair, apples-to-apples comparison.
+
+6. Model Evaluation
+
+Each model was evaluated on the test set using:
+
+Confusion matrix
+
+Accuracy
+
+Sensitivity (Recall)
+
+Specificity
+
+ROC curve
+
+Area Under Curve (AUC)
+
+A custom evaluation function was used to standardize comparison:
+
+evaluate_model <- function(model, test_data, positive_class = "Yes") {
+  pred_class <- predict(model, newdata = test_data)
+  pred_prob <- predict(model, newdata = test_data, type = "prob")[, positive_class]
+  cm <- confusionMatrix(pred_class, test_data$stroke, positive = positive_class)
+  
+  roc_obj <- roc(
+    response = test_data$stroke,
+    predictor = pred_prob,
+    levels = c("No", "Yes")
+  )
+  
+  list(
+    cm = cm,
+    auc = auc(roc_obj),
+    roc_obj = roc_obj
+  )
+}
+
+Using these metrics provides a complete understanding of each model’s ability to detect rare stroke cases.
+
+This combined methodology from both project drafts ensures:
+
+Clean, consistent, and reliable data
+
+No data leakage
+
+Proper handling of class imbalance
+
+Fair cross-validated comparison across models
+
+A complete evaluation of model performance
+
+This workflow provides a strong foundation for accurate and interpretable stroke prediction.

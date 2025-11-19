@@ -1,0 +1,126 @@
+---
+title: "Conclusion"
+---
+
+This project applied six supervised machine-learning models to a highly imbalanced medical dataset to predict the likelihood of stroke based on demographic, behavioral, and clinical risk factors. Through a structured process of data cleaning, stratified sampling, and repeated cross-validation, the models were evaluated using robust metrics including AUC, sensitivity, specificity, and ROC curves.
+
+---
+
+## Key Findings
+
+### 1. Ensemble models performed best
+Gradient Boosted Machine (GBM) and Random Forest consistently showed the strongest discriminative performance:
+
+- GBM AUC ≈ 0.810
+- Random Forest AUC ≈ 0.805
+- Logistic Regression AUC ≈ 0.817
+
+These models captured important nonlinear relationships in the data.
+
+### 2. All models struggled with sensitivity
+Due to extreme class imbalance (~5% stroke cases):
+
+- Five out of six models predicted 0 true positives
+- Sensitivity was nearly 0%
+- Accuracy was misleadingly high (~95%) because the majority class dominates
+
+This highlights a major challenge in rare-event medical modeling.
+
+### 3. Threshold adjustment improved detection
+Lowering the decision threshold for GBM from 0.5 to 0.3:
+
+- Sensitivity improved from 0% to 8.1%
+- Specificity remained high (98.8%)
+- Balanced accuracy increased
+- The model correctly identified several stroke cases that were previously missed
+
+This demonstrates the practical value of threshold tuning in imbalanced datasets.
+
+### 4. Important predictors
+Across models, the most influential predictors were:
+
+- Age 
+- Average glucose level
+- Hypertension  
+- BMI  
+- Smoking status (never smoked / unknown) 
+
+
+---
+
+## Limitations
+
+- The dataset is highly imbalanced, making sensitivity difficult to achieve.  
+- There is limited clinical detail (e.g., cholesterol, blood pressure ranges).  
+- Most models default to predicting the majority class without specialized imbalance handling.  
+
+---
+
+
+## Final Summary
+
+---
+title: "Conclusion"
+---
+
+This project applied six supervised machine-learning models to a highly imbalanced medical dataset to predict the likelihood of stroke based on demographic, behavioral, and clinical risk factors. Through a structured process of data cleaning, stratified sampling, and repeated cross-validation, the models were evaluated using robust metrics including AUC, sensitivity, specificity, and ROC curves.
+
+---
+
+## Key Findings
+
+### **1. Ensemble models performed best**
+Gradient Boosted Machine (GBM) and Random Forest consistently showed the strongest discriminative performance:
+
+- GBM AUC ≈ **0.810**
+- Random Forest AUC ≈ **0.805**
+- Logistic Regression AUC ≈ **0.817**
+
+These models captured important nonlinear relationships in the data.
+
+### **2. All models struggled with sensitivity**
+Due to extreme class imbalance (~5% stroke cases):
+
+- Five out of six models predicted **0 true positives**
+- Sensitivity was nearly **0%**
+- Accuracy was misleadingly high (~95%) because the majority class dominates
+
+This highlights a major challenge in rare-event medical modeling.
+
+### **3. Threshold adjustment improved detection**
+Lowering the decision threshold for GBM from **0.5 → 0.3**:
+
+- Sensitivity improved from **0% → 8.1%**
+- Specificity remained high (**98.8%**)
+- Balanced accuracy increased
+- The model correctly identified several stroke cases that were previously missed
+
+This demonstrates the practical value of threshold tuning in imbalanced datasets.
+
+### **4. Important predictors**
+Across models, the most influential predictors were:
+
+- **Age**  
+- **Average glucose level**  
+- **Hypertension**  
+- **BMI**  
+- **Smoking status (never smoked / unknown)**  
+
+These findings match published research in stroke-risk prediction.
+
+---
+
+## Limitations
+
+- The dataset is **highly imbalanced**, making sensitivity difficult to achieve.  
+- There is limited clinical detail (e.g., cholesterol, blood pressure ranges).  
+- Most models default to predicting the majority class without specialized imbalance handling.  
+
+
+## Final Summary
+
+Despite the challenges posed by severe class imbalance, this project successfully implemented and compared six supervised machine-learning models—Logistic Regression, Decision Tree, Random Forest, Gradient Boosting (GBM), k-Nearest Neighbors, and Support Vector Machine—to predict stroke occurrence using demographic, behavioral, and clinical features. The results showed that ensemble-based methods, particularly GBM and Random Forest, consistently delivered the strongest discriminative performance with high AUC values and robust ROC behavior. Logistic Regression also performed competitively, reinforcing its usefulness as a baseline model even in complex health prediction tasks.
+
+However, the findings also highlight the difficulty of identifying stroke cases in datasets where the minority class represents fewer than 5% of all observations. Most models achieved high accuracy by simply predicting the majority class (“No stroke”), leading to extremely low sensitivity. This underscores the limitations of traditional accuracy metrics in healthcare contexts and the need for evaluation methods that prioritize minority-class detection. By adjusting the probability threshold, the GBM model demonstrated a measurable improvement in sensitivity, successfully identifying cases that all models previously misclassified. This confirms that simple post-processing strategies, such as threshold tuning, can significantly improve the clinical utility of machine-learning models.
+
+Overall, the study demonstrates that meaningful stroke prediction is possible but requires thoughtful handling of class imbalance and careful interpretation of model performance metrics. The project provides a strong foundation for more sophisticated modeling approaches such as class weighting, SMOTE oversampling, cost-sensitive learning, and advanced gradient-boosting algorithms like XGBoost or LightGBM. As the prevalence of stroke continues to rise worldwide, improving early-risk prediction with data-driven tools can contribute to earlier interventions, more targeted patient monitoring, and ultimately better public health outcomes.

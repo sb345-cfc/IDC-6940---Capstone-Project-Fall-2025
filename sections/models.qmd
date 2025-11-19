@@ -1,0 +1,216 @@
+---
+title: "Models"
+---
+
+This section describes the development of the six supervised machine-learning models used to predict stroke occurrence. All models were trained using the **caret** package with the same repeated 5-fold cross-validation structure and ROC-based optimization.
+
+---
+
+# Model Formula
+
+All models used the same predictor formula:
+
+```r
+model_formula <- stroke ~ age + gender + hypertension + heart_disease +
+                 ever_married + work_type + residence_type +
+                 avg_glucose_level + bmi + smoking_status
+
+
+Cross-Validation Setup
+
+ctrl <- trainControl(
+  method = "repeatedcv",
+  number = 5,
+  repeats = 3,
+  classProbs = TRUE,
+  summaryFunction = twoClassSummary
+)
+This ensures fair comparison across all models.
+
+1. Logistic Regression
+
+set.seed(123)
+fit_glm <- train(
+  model_formula,
+  data = train_data,
+  method = "glm",
+  family = "binomial",
+  trControl = ctrl,
+  metric = "ROC"
+)
+fit_glm
+
+Key Findings
+
+- ROC ≈ 0.8456
+
+- Sensitivity = very low (model predicts almost all “No stroke”)
+
+- Specificity ≈ 1.00
+
+- AUC ≈ 0.8167
+
+- Age, Hypertension, and Glucose Level were the most important predictors.
+
+varImp(fit_glm)
+
+Logistic regression performed well in terms of ROC, but class imbalance caused it to miss most stroke cases.
+
+2. Decision Tree (rpart)
+
+set.seed(123)
+fit_rpart <- train(
+  model_formula,
+  data = train_data,
+  method = "rpart",
+  trControl = ctrl,
+  metric = "ROC"
+)
+fit_rpart
+
+Key Findings
+
+- ROC ≈ 0.738
+
+- Sensitivity slightly higher than other simple models
+
+- Top predictors: Age, Hypertension, Glucose Level
+
+Plot the tree:
+rpart.plot(fit_rpart$finalModel)
+
+Decision trees are interpretable but struggle with imbalanced data.
+
+3. Gradient Boosted Machine (GBM)
+set.seed(123)
+fit_gbm <- train(
+  model_formula,
+  data = train_data,
+  method = "gbm",
+  trControl = ctrl,
+  metric = "ROC",
+  verbose = FALSE
+)
+fit_gbm
+
+Key Findings
+
+- ROC ≈ 0.845 (highest among all models)
+
+- AUC ≈ 0.810
+
+- Strong classifier, but low sensitivity due to rare stroke cases
+
+Most important predictors:
+
+- Age
+
+- Average Glucose
+
+- Hypertension
+
+varImp(fit_gbm)
+
+GBM showed the best discriminative power in your project.
+
+4. Random Forest
+set.seed(123)
+fit_rf <- train(
+  model_formula,
+  data = train_data,
+  method = "rf",
+  trControl = ctrl,
+  metric = "ROC"
+)
+fit_rf
+
+Key Findings
+
+- ROC ≈ 0.821
+
+- AUC ≈ 0.805
+
+- Sensitivity still low
+
+Variable importance ranks:
+
+- Glucose
+
+- BMI
+
+- Age
+
+varImp(fit_rf)
+
+5. k-Nearest Neighbors (kNN)
+
+set.seed(123)
+fit_knn <- train(
+  model_formula,
+  data = train_data,
+  method = "knn",
+  trControl = ctrl,
+  metric = "ROC",
+  preProcess = c("center", "scale")
+)
+fit_knn
+
+Key Findings
+
+- ROC increases slightly with larger k
+
+- AUC ≈ 0.678
+
+- Predicted No stroke for all cases (0% sensitivity)
+
+- kNN struggles heavily with imbalanced datasets.
+
+6. Support Vector Machine (Radial Kernel)
+set.seed(123)
+fit_svm <- train(
+  model_formula,
+  data = train_data,
+  method = "svmRadial",
+  trControl = ctrl,
+  metric = "ROC",
+  preProcess = c("center", "scale")
+)
+fit_svm
+
+Key Findings
+
+- AUC ≈ 0.639
+
+- High accuracy but 0% sensitivity
+
+- Predicted all cases as “No stroke”
+
+- SVM performed poorly on this dataset due to the rarity of stroke events.
+
+Summary of All Models
+
+GBM and Random Forest were the strongest models in terms of AUC and ROC.
+
+Logistic Regression also performed surprisingly well but still struggled with identifying positive stroke cases.
+
+Simple classifiers (kNN, SVM, Decision Tree) had weaker performance due to data imbalance.
+
+ROC Curves for All Models
+plot(res_glm$roc_obj, col="black", lwd=2, main="ROC Curves (6 Models)")
+plot(res_rpart$roc_obj, col="orange", lwd=2, add=TRUE)
+plot(res_rf$roc_obj, col="red", lwd=2, add=TRUE)
+plot(res_gbm$roc_obj, col="blue", lwd=2, add=TRUE)
+plot(res_knn$roc_obj, col="brown", lwd=2, add=TRUE)
+plot(res_svm$roc_obj, col="darkgreen", lwd=2, add=TRUE)
+
+Conclusion
+
+- GBM had the highest AUC and ROC performance.
+
+- Random Forest closely followed.
+
+- Logistic Regression performed moderately well.
+
+- Decision Tree, kNN, and SVM performed poorly due to imbalance.
+
+

@@ -1,0 +1,18 @@
+---
+title: "Literature Review"
+---
+
+Predicting stroke risk has been widely studied in both clinical research and data science because early identification of high-risk individuals greatly improves long-term outcomes. Prior literature consistently emphasizes the importance of demographic, behavioral, and clinical features when modeling stroke, including age, hypertension, heart disease, BMI, diabetes, glucose levels, and smoking behavior.
+
+Kaggle’s publicly available stroke dataset has been used by several studies to evaluate machine-learning models for early stroke detection. Kaur and Kumar (2019) reported that logistic regression and random forest models performed reasonably well, with age and glucose level being the most influential predictors. However, they also noted that extreme class imbalance caused many models to default to predicting the majority class (“No stroke”).
+
+Mohanty et al. (2020) compared multiple ensemble methods and found that Gradient Boosting and Random Forest achieved the strongest performance, with AUC values above 0.80. They observed that ensemble models tend to capture complex nonlinear relationships better than simpler linear models, especially in medical datasets.
+
+Amin et al. (2021) highlighted the importance of handling class imbalance properly. They demonstrated that techniques such as SMOTE oversampling, class-weight adjustments, and probability-threshold tuning can significantly increase the sensitivity of minority-class predictions while maintaining overall model stability. Without these adjustments, most models struggle to identify rare health events like stroke.
+
+Across the literature, two themes consistently appear:
+
+1. **Tree-based ensemble models outperform most other algorithms** in terms of ROC and AUC.  
+2. **Imbalanced datasets create major challenges**, often resulting in very low sensitivity unless corrective measures are used.
+
+These findings strongly support our decision to evaluate multiple modeling techniques and to carefully examine performance metrics beyond accuracy, such as sensitivity, specificity, and AUC.

@@ -1,0 +1,15 @@
+---
+title: "Introduction"
+---
+
+Stroke frequently happens suddenly, but by figuring out what causes it, we may utilize data analysis to forecast risk and find significant trends. These revelations enable people to take knowledgeable actions toward improved health by increasing awareness.The World Health Organization reports that millions of people suffer from hemorrhagic or ischemic stroke every year, and many of these patients have long-term neurological disability. Early detection of high-risk individuals can facilitate prompt intervention, lifestyle changes, and better patient outcomes. Machine-learning algorithms are now useful for predicting stroke risk based on clinical and demographic characteristics due to the growing availability of health data and computational resources.
+Our project of 3 is maininly focused on utilizing a stroke dataset that includes important patient characteristics, such as age, gender, medical history (heart disease and hypertension), behavioral factors (smoking status, physical living environment), and physiological measurements like body mass index (BMI) and average blood glucose levels, to create a thorough predictive modeling framework. This dataset is appropriate for exploratory and predictive analysis since these variables have been extensively researched in.
+
+There are 3 main objectives for our research
+
+•	Data cleaning:
+
+•	Create different modeling techniques – I am using 6 different modeling  technique, I am good with to find out the best result. ( Logistic Regression,  Decision Tree , Random Forest, Gradient Boosted Machine, k-Nearest Neighbors , Support Vector Machine – radial
+•	Performance result: To choose the most near perfect model for stroke classification, evaluate each model using accuracy, sensitivity, specificity, ROC curves, AUC, and confusion matrices.
+
+This study seeks to determine the best-performing classifier as well as the predictors that most significantly influence the chance of stroke by methodically assessing a wide range of models.
