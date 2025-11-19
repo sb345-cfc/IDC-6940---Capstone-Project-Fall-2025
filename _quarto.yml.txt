@@ -29,4 +29,3 @@ format:
     toc: true
     toc-location: left
     code-fold: true
-    
